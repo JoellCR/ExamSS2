@@ -35,6 +35,26 @@ function exasModel(db){
         }); //insertOne
     }
 
+    exaModel.updateExa = (updateFields, exaId, handler)=>{
+      let exaFilter = {"_id": new ObjectId(exaId)};
+      let updateObject = {
+        "$set": {
+                  "estado": updateFields.estado,
+              }
+  };
+  exaCollection.updateOne(
+      exaFilter,
+      updateObject,
+      (err, rslt)=>{
+        if(err){
+          console.log(err);
+          return handler(err, null);
+        }
+        return handler(null, rslt);
+      }
+    );
+  }; // updateObject
+
     return exaModel;
 }
 

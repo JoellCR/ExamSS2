@@ -24,9 +24,11 @@ function initexaApi(db){
            {},
            req.body,
            { 
+             "id":req.body.id,
              "nombre":req.body.nombre,
              "autor":req.body.autor,
              "pais":req.body.pais,
+             "estado":req.body.estado,
              "numerostomos": parseInt(req.body.numerostomos),
              "keywords": [req.body.keywords],
              "categorias": [req.body.categorias],
@@ -38,8 +40,28 @@ function initexaApi(db){
           }else{
             res.status(200).json(rslt);
           }
-        });// saveNewProduct
+        });//guardarnuevo
      }); // post /new
+
+     //PUT
+
+     router.put('/update/:exaid',
+     function(req, res)
+     {
+       var exaIdToModify = req.params.exaid;
+       var estadoAct= req.body.estado;
+       exaModel.updateExa(
+         {estado:estadoAct}, exaIdToModify,
+         (err, rsult)=>{
+           if(err){
+             res.status(500).json(err);
+           }else{
+             res.status(200).json(rsult);
+           }
+         }
+         ); //updateManga
+     }
+    );// put
 
       return router;
 
