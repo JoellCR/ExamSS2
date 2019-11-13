@@ -24,10 +24,11 @@ passport.use(
 
 //Rutas de Cada Entidad
 var securityApiRoutes = require('./security/index')(db);
+var condominiosApiRoutes = require('./exa/index')(db);
 
 //localhost:3000/api/sec/
 router.use('/sec', securityApiRoutes);
-
+router.use('/ex', condominiosApiRoutes); 
 
 //localhost:3000/api/exa
 
