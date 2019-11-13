@@ -28,7 +28,9 @@ var condominiosApiRoutes = require('./exa/index')(db);
 
 //localhost:3000/api/sec/
 router.use('/sec', securityApiRoutes);
-router.use('/ex', condominiosApiRoutes); 
+router.use('/ex',
+passport.authenticate('jwt', {session:false}),
+condominiosApiRoutes);
 
 //localhost:3000/api/exa
 
