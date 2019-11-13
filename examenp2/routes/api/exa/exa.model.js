@@ -21,7 +21,7 @@ function exasModel(db){
         );
     } //finaliza getallexa
 
-    //PUT
+    //POST
     exaModel.saveNewexa = (newExa, handler)=>
     {
         exaCollection.insertOne(newExa, (err, result)=>
@@ -35,6 +35,7 @@ function exasModel(db){
         }); //insertOne
     }
 
+    //PUT
     exaModel.updateExa = (updateFields, exaId, handler)=>{
       let exaFilter = {"_id": new ObjectId(exaId)};
       let updateObject = {
@@ -54,6 +55,22 @@ function exasModel(db){
       }
     );
   }; // updateObject
+
+
+  //DELETE
+
+  exaModel.deleteExa = (id, handler)=>
+  {
+    var query = {"_id": new ObjectId(id)};
+    exaCollection.deleteOne(query, (err, rslt)=>{
+        if(err)
+        {
+          console.log(err);
+          return handler(err, null);
+        }
+        return handler(null, rslt);
+    })
+  }
 
     return exaModel;
 }

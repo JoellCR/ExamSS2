@@ -63,9 +63,29 @@ function initexaApi(db){
      }
     );// put
 
-      return router;
 
-      
+    //DELETE
+    router.delete(
+        '/delete/:exaid',
+        function( req, res) {
+    
+          var id = req.params.exaid || '';
+          if(id===' ')
+          {
+            return  res.status(404).json({"error": "No esta valido"});
+          }
+          exaModel.deleteExa(id, (err, rslt)=>{
+            if(err)
+            {
+              return res.status(500).json({"error":"Ocurrió un error, intente de nuevo."});
+            }
+            return res.status(200).json({"msg":"Eliminado Correctamente"});
+            
+          }); //delete manga
+        }
+      );// delete
+
+      return router;   
 }
 
 module.exports=  initexaApi;
